@@ -4,6 +4,8 @@ package br.edu.ifsul.cc.lpoo.cv.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 /**
@@ -21,6 +23,10 @@ public class Funcionario extends Pessoa {
     
     @Column(nullable = false, length = 11)
     private String numero_pis;
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Cargo cargo;
     
     public Funcionario() {
         
@@ -52,5 +58,19 @@ public class Funcionario extends Pessoa {
      */
     public void setNumero_pis(String numero_pis) {
         this.numero_pis = numero_pis;
+    }
+
+    /**
+     * @return the cargo
+     */
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    /**
+     * @param cargo the cargo to set
+     */
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 }

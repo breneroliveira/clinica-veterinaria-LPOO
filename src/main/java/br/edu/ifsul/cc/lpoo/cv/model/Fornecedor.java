@@ -1,7 +1,6 @@
 
 package br.edu.ifsul.cc.lpoo.cv.model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
