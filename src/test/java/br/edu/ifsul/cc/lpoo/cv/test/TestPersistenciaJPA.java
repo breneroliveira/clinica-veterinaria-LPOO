@@ -8,13 +8,14 @@ import org.junit.Test;
  *
  * @author brener
  */
+
 public class TestPersistenciaJPA {
     
     @Test
-    public void testConexaoGeracaoTabelas(){
+    public void testConexaoGeracaoTabelas() {
         
         PersistenciaJPA persistencia = new PersistenciaJPA();
-        if(persistencia.conexaoAberta()){
+        if(persistencia.conexaoAberta()) {
             System.out.println("Abriu a conexao com o BD via JPA.");
             
             persistencia.fecharConexao();
