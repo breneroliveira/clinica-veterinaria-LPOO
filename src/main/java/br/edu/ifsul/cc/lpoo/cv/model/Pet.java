@@ -44,7 +44,7 @@ public class Pet implements Serializable {
     private Raca raca;
     
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false) // Associacao
+    @JoinColumn(name = "cliente_cpf", nullable = false) // Associacao
     private Cliente cliente;
     
     public Pet() {

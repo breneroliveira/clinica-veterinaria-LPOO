@@ -38,7 +38,7 @@ public class Produto implements Serializable {
     private Float quantidade;
     
     @ManyToOne
-    @JoinColumn(name = "fornecedor_id", nullable = false)
+    @JoinColumn(name = "fornecedor_cpf", nullable = false)
     private Fornecedor fornecedor;
     
     @Column(nullable = false)

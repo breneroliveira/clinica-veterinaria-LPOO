@@ -45,11 +45,11 @@ public class Venda implements Serializable {
     private Calendar data;
     
     @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
+    @JoinColumn(name = "funcionario_cpf", nullable = false)
     private Funcionario funcionario;
     
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_cpf", nullable = false)
     private Cliente cliente;
     
     @Column(nullable = false)

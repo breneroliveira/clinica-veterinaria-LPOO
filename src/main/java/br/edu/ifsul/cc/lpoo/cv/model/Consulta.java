@@ -46,7 +46,7 @@ public class Consulta implements Serializable {
     private Float valor;
     
     @ManyToOne
-    @JoinColumn(name = "medico_id", nullable = false)
+    @JoinColumn(name = "medico_cpf", nullable = false)
     private Medico medico;
     
     @ManyToOne

@@ -43,11 +43,11 @@ public class Agenda implements Serializable {
     private String observacao;
     
     @ManyToOne
-    @JoinColumn(name = "medico_id", nullable = false)
+    @JoinColumn(name = "medico_cpf", nullable = false)
     private Medico medico;
     
     @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
+    @JoinColumn(name = "funcionario_cpf", nullable = false)
     private Funcionario funcionario;
     
     @Column(nullable = false)
