@@ -31,7 +31,7 @@ public class TestPersistenciaJDBC {
         }       
     }
     
-    @Test
+    //@Test
     public void testPersistenciaConsultaReceita() throws Exception {
     
         PersistenciaJDBC persistencia = new PersistenciaJDBC();
@@ -181,7 +181,7 @@ public class TestPersistenciaJDBC {
         }
     }
     
-    //@Test
+    @Test
     public void testPersistenciaReceita() throws Exception {
         
         PersistenciaJDBC persistencia = new PersistenciaJDBC();

@@ -248,6 +248,11 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         if(o instanceof Consulta) {
             
+            Receita r = (Receita) o;
+            PreparedStatement ps2 = this.con.prepareStatement("delete from tb_receita where id = ?");
+            ps2.setInt(1, r.getId());
+            ps2.execute();
+            
             Consulta c = (Consulta) o; // Converter o para o e que eh do tipo Consulta.
             
             PreparedStatement ps = this.con.prepareStatement("delete from tb_consulta where id = ?");
