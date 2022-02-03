@@ -6,6 +6,8 @@ import br.edu.ifsul.cc.lpoo.cv.model.Medico;
 import br.edu.ifsul.cc.lpoo.cv.model.Pet;
 import br.edu.ifsul.cc.lpoo.cv.model.Receita;
 import br.edu.ifsul.cc.lpoo.cv.model.dao.PersistenciaJDBC;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import org.junit.Test;
@@ -31,9 +33,11 @@ public class TestPersistenciaJDBC {
         }       
     }
     
-    //@Test
+    @Test
     public void testPersistenciaConsultaReceita() throws Exception {
-    
+        
+        DateFormat formatada = new SimpleDateFormat("dd/MM/yyyy");
+        
         PersistenciaJDBC persistencia = new PersistenciaJDBC();
         if(persistencia.conexaoAberta()) {
         
@@ -43,37 +47,37 @@ public class TestPersistenciaJDBC {
             
                 for(Consulta c : lista) {
                 
-                    System.out.println("ID da consulta: " + c.getId() 
-                                       + " -- Data da consulta: " + c.getData() 
-                                       + " -- Observação:" + c.getObservacao() 
-                                       + " -- Data de retorno: " + c.getData_retorno() 
-                                       + " -- Valor (R$): " + c.getValor() 
-                                       + " -- CPF do médico: " + c.getMedico().getCpf() 
-                                       + " -- ID do pet: " + c.getPet().getId());
+                    System.out.println("\n-- ID da consulta: " + c.getId() 
+                                       + " \n-- Data da consulta: " +  formatada.format(c.getData().getTime())
+                                       + " \n-- Observação: " + c.getObservacao() 
+                                       + " \n-- Data de retorno: " + formatada.format(c.getData_retorno().getTime()) 
+                                       + " \n-- Valor (R$): " + c.getValor() 
+                                       + " \n-- CPF do médico: " + c.getMedico().getCpf() 
+                                       + " \n-- ID do pet: " + c.getPet().getId() + "\n");
                     
                     if(c.getReceitas() != null && !c.getReceitas().isEmpty()) {
                         
                         for(Receita r : c.getReceitas()) {
 
-                            System.out.println("ID da receita: " + r.getId() 
-                                               + " -- Orientação: " + r.getOrientacao()
-                                               + " -- ID da cosulta: " + r.getConsulta().getId());
+                            System.out.println("-- ID da receita: " + r.getId() 
+                                               + " \n-- Orientação: " + r.getOrientacao()
+                                               + " \n-- ID da cosulta: " + r.getConsulta().getId() + "\n");
 
                             persistencia.remover(r);
-                            System.out.println("Receita de ID " + r.getId() + " removida.");
+                            System.out.println("Receita de ID " + r.getId() + " removida.\n");
                             
                         }
                         
                     }
                     
                     persistencia.remover(c);
-                    System.out.println("Consulta de ID " + c.getId() + " removida.");
+                    System.out.println("Consulta de ID " + c.getId() + " removida.\n");
                 
                 }
                 
             } else {
                 
-                System.out.println("Não encontrou a consulta.");
+                System.out.println("\nNão encontrou a consulta.");
                 
                 Consulta cons = new Consulta();
                 Calendar data_convertida_1 = Calendar.getInstance();
@@ -96,16 +100,15 @@ public class TestPersistenciaJDBC {
                 cons.setPet(pet);
                 
                 persistencia.persist(cons); // INSERT na tabela.
-                System.out.println("Cadastrou a consulta " + cons.getId());
+                System.out.println("Cadastrou a consulta " + cons.getId() + ".\n");
                 
                 System.out.println("Não encontrou a receita.");
-                cons.setId(1);
                 Receita rece = new Receita();
                 rece.setConsulta(cons);
                 rece.setOrientacao("Nenhuma");
 
                 persistencia.persist(rece); // INSERT na tabela.
-                System.out.println("Cadastrou a receita " + rece.getId());
+                System.out.println("Cadastrou a receita " + rece.getId() + ".\n");
                 
             }
         
@@ -181,7 +184,7 @@ public class TestPersistenciaJDBC {
         }
     }
     
-    @Test
+    //@Test
     public void testPersistenciaReceita() throws Exception {
         
         PersistenciaJDBC persistencia = new PersistenciaJDBC();

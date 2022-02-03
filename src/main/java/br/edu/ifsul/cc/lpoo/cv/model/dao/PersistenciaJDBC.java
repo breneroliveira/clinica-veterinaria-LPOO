@@ -248,10 +248,10 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         if(o instanceof Consulta) {
             
-            Receita r = (Receita) o;
+            /*Receita r = (Receita) o;
             PreparedStatement ps2 = this.con.prepareStatement("delete from tb_receita where id = ?");
             ps2.setInt(1, r.getId());
-            ps2.execute();
+            ps2.execute();*/
             
             Consulta c = (Consulta) o; // Converter o para o e que eh do tipo Consulta.
             
@@ -296,7 +296,7 @@ public class PersistenciaJDBC implements InterfacePersistencia {
             
             Calendar data_retorno_cal = Calendar.getInstance();
             data_retorno_cal.setTimeInMillis(rs.getDate("data_retorno").getTime());
-            cons.setData(data_retorno_cal);
+            cons.setData_retorno(data_retorno_cal);
             
             cons.setObservacao(rs.getString("observacao"));
             
@@ -323,6 +323,7 @@ public class PersistenciaJDBC implements InterfacePersistencia {
 
                 r.setId(rs2.getInt("id"));
                 r.setOrientacao(rs2.getString("orientacao"));
+                r.setConsulta(cons);
 
                 cons.setReceita(r);
 
