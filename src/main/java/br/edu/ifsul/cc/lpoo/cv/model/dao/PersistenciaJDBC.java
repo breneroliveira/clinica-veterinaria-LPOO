@@ -2,9 +2,10 @@
 package br.edu.ifsul.cc.lpoo.cv.model.dao;
 
 import br.edu.ifsul.cc.lpoo.cv.model.Consulta;
+import br.edu.ifsul.cc.lpoo.cv.model.Medico;
+import br.edu.ifsul.cc.lpoo.cv.model.Pet;
 import br.edu.ifsul.cc.lpoo.cv.model.Receita;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,7 +64,8 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         if(c == Consulta.class) {
             
             // tb_consulta
-            PreparedStatement ps = this.con.prepareStatement("select id, data, observacao, data_retorno, valor "
+            PreparedStatement ps = this.con.prepareStatement("select id, data, observacao, data_retorno, valor, "
+                                                            + "medico_cpf, pet_id "
                                                             + "from tb_consulta where id = ?");
             ps.setInt(1, Integer.parseInt(id.toString()));
             
@@ -71,29 +73,57 @@ public class PersistenciaJDBC implements InterfacePersistencia {
 
             if(rs.next()) {
             
-                Consulta con = new Consulta();
+                Consulta cons = new Consulta();
                 
-                con.setId(rs.getInt("id"));
+                cons.setId(rs.getInt("id"));
                 
                 Calendar data_var = Calendar.getInstance();
                 data_var.setTimeInMillis(rs.getDate("data").getTime());
-                con.setData(data_var);
+                cons.setData(data_var);
                     
-                con.setObservacao(rs.getString("observacao"));
+                cons.setObservacao(rs.getString("observacao"));
                 
                 Calendar data_retorno_var = Calendar.getInstance();
                 data_retorno_var.setTimeInMillis(rs.getDate("data_retorno").getTime());
-                con.setData_retorno(data_retorno_var);
+                cons.setData_retorno(data_retorno_var);
                 
-                ps.close();
+                cons.setValor(rs.getFloat("valor"));
                 
-                return con;                
+                Medico med = new Medico();
+                med.setCpf(rs.getString("medico_cpf"));
+                cons.setMedico(med);
+                
+                Pet pet = new Pet();
+                pet.setId(rs.getInt("pet_id"));
+                cons.setPet(pet);
+                
+                PreparedStatement psr = this.con.prepareStatement("select r.id, r.orientacao "
+                                                                 + "from tb_receita r, tb_consulta c "
+                                                                 + "where r.consulta_id = c.id and "
+                                                                 + "c.id = ?");
+                
+                psr.setInt(1, Integer.parseInt(id.toString()));
+                
+                ResultSet rs2 = psr.executeQuery();
+
+                while(rs2.next()) {
+
+                    Receita r = new Receita();
+                    
+                    r.setId(rs2.getInt("id"));
+                    r.setOrientacao(rs2.getString("orientacao"));
+
+                    cons.setReceita(r);
+                    
+                }
+                
+                return cons;
             }
             
         } else if(c == Receita.class) {
             
             // tb_receita
-            PreparedStatement ps = this.con.prepareStatement("select id, orientacao from "
+            PreparedStatement ps = this.con.prepareStatement("select id, orientacao, consulta_id from "
                                                             + "tb_receita where id = ?");
             ps.setInt(1, Integer.parseInt(id.toString()));
             
@@ -101,15 +131,17 @@ public class PersistenciaJDBC implements InterfacePersistencia {
 
             if(rs.next()) {
             
-                Receita res = new Receita();
+                Receita rec = new Receita();
                 
-                res.setId(rs.getInt("id"));
+                rec.setId(rs.getInt("id"));
                 
-                res.setOrientacao(rs.getString("orientacao"));
+                rec.setOrientacao(rs.getString("orientacao"));
                 
-                ps.close();
+                Consulta consu = new Consulta();
+                consu.setId(rs.getInt("consulta_id"));
+                rec.setConsulta(consu);
                 
-                return res;                
+                return rec;                
             }
             
         }
@@ -130,15 +162,23 @@ public class PersistenciaJDBC implements InterfacePersistencia {
              
                 // INSERT.
                 PreparedStatement ps = this.con.prepareStatement("insert into tb_consulta "
-                                                                + "(id, data, observacao, data_retorno, valor) "
+                                                                + "(id, data, observacao, data_retorno, valor, "
+                                                                + "medico_cpf, pet_id) "
                                                                 + "values (nextval('seq_consulta_id'), "
-                                                                + "?, ?, ?, ?)");
-                ps.setDate(1, (Date) c.getData().getTime());
-                ps.setString(2, c.getObservacao());
-                ps.setDate(3, (Date) c.getData_retorno().getTime());
-                ps.setFloat(4, c.getValor());
+                                                                + "?, ?, ?, ?, ?, ?) returning id");
                 
-                ps.execute();
+                ps.setDate(1, new java.sql.Date(c.getData().getTimeInMillis()));
+                ps.setString(2, c.getObservacao());
+                ps.setDate(3, new java.sql.Date(c.getData_retorno().getTimeInMillis()));
+                ps.setFloat(4, c.getValor());
+                ps.setString(5, c.getMedico().getCpf());
+                ps.setInt(6, c.getPet().getId());
+                
+                ResultSet rs = ps.executeQuery();
+                
+                if(rs.next()){
+                    c.setId(rs.getInt(1));
+                }
                 
             } else {
                 
@@ -147,17 +187,18 @@ public class PersistenciaJDBC implements InterfacePersistencia {
                                                                 + "data = ?, "
                                                                 + "observacao = ?, "
                                                                 + "data_retorno = ?, "
-                                                                + "valor = ? "
+                                                                + "valor = ?, "
+                                                                + "medico_cpf = ?, "
+                                                                + "pet_id = ? "
                                                                 + "where id = ?");
-                //ps.setDate(1, c.getData());                
-                //ps.setDate(1, (Date) c.getData().getTime());
+                
                 ps.setDate(1, new java.sql.Date(c.getData().getTimeInMillis()));
                 ps.setString(2, c.getObservacao());
-                //ps.setDate(3, c.getData_retorno());
-                //ps.setDate(3, (Date) c.getData_retorno().getTime());
                 ps.setDate(3, new java.sql.Date(c.getData_retorno().getTimeInMillis()));
                 ps.setFloat(4, c.getValor());
-                ps.setInt(5, c.getId());
+                ps.setString(5, c.getMedico().getCpf());
+                ps.setInt(6, c.getPet().getId());
+                ps.setInt(7, c.getId());
                 
                 ps.execute(); // Executa o comando.
                 
@@ -171,20 +212,30 @@ public class PersistenciaJDBC implements InterfacePersistencia {
              
                 // INSERT.
                 PreparedStatement ps = this.con.prepareStatement("insert into tb_receita "
-                                                                + "(id, orientacao) "
-                                                                + "values (nextval('seq_receita_id'), ?)");
-                ps.setString(1, r.getOrientacao());
+                                                                + "(id, orientacao, consulta_id) "
+                                                                + "values (nextval('seq_receita_id'), ?, ?) "
+                                                                + "returning id");
                 
-                ps.execute();
+                ps.setString(1, r.getOrientacao());
+                ps.setInt(2, r.getConsulta().getId());
+                
+                ResultSet rs = ps.executeQuery();
+                
+                if(rs.next()){
+                    r.setId(rs.getInt(1));
+                }
                 
             } else {
                 
                 // UPDATE.
                 PreparedStatement ps = this.con.prepareStatement("update tb_receita set "
                                                                 + "orientacao = ?, "
+                                                                + "consulta_id = ? "
                                                                 + "where id = ?");
+                
                 ps.setString(1, r.getOrientacao());
-                ps.setInt(2, r.getId());
+                ps.setInt(2, r.getConsulta().getId());
+                ps.setInt(3, r.getId());
                 
                 ps.execute(); // Executa o comando.
                 
@@ -220,7 +271,8 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         List<Consulta> lista = null;
         
-        PreparedStatement ps = this.con.prepareStatement("select id, data, observacao, data_retorno, valor "
+        PreparedStatement ps = this.con.prepareStatement("select id, data, data_retorno, observacao, valor, "
+                                                        + "medico_cpf, pet_id "
                                                         + "from tb_consulta order by id asc");
         
         ResultSet rs = ps.executeQuery(); // Executa a query.
@@ -229,27 +281,49 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         while(rs.next()) {
             
-            Consulta con = new Consulta();
+            Consulta cons = new Consulta();
             
-            con.setId(rs.getInt("id"));
+            cons.setId(rs.getInt("id"));
             
             Calendar data_cal = Calendar.getInstance();
             data_cal.setTimeInMillis(rs.getDate("data").getTime());
-            con.setData(data_cal);
-            
-            //con.setData(rs.getDate("data"));
-            
-            con.setObservacao(rs.getString("observacao"));
+            cons.setData(data_cal);
             
             Calendar data_retorno_cal = Calendar.getInstance();
             data_retorno_cal.setTimeInMillis(rs.getDate("data_retorno").getTime());
-            con.setData(data_retorno_cal);
+            cons.setData(data_retorno_cal);
             
-            //con.setData_retorno(rs.getDate("data_retorno"));
+            cons.setObservacao(rs.getString("observacao"));
             
-            con.setValor(rs.getFloat("valor"));
+            cons.setValor(rs.getFloat("valor"));
             
-            lista.add(con); // Adiciona na lista o objeto que contem as informacoes de uma determinada linha do ResultSet.
+            Medico med = new Medico();
+            med.setCpf(rs.getString("medico_cpf"));
+            cons.setMedico(med);
+            
+            Pet pet = new Pet();
+            pet.setId(rs.getInt("pet_id"));
+            cons.setPet(pet);
+            
+            PreparedStatement psr = this.con.prepareStatement("select id, orientacao "
+                                                             + "from tb_receita where consulta_id = ?"); // AQUI ERA consulta_id NO LUGAR DE id
+            
+            psr.setInt(1, cons.getId());
+
+            ResultSet rs2 = psr.executeQuery();
+
+            while(rs2.next()) {
+
+                Receita r = new Receita();
+
+                r.setId(rs2.getInt("id"));
+                r.setOrientacao(rs2.getString("orientacao"));
+
+                cons.setReceita(r);
+
+            }
+            
+            lista.add(cons); // Adiciona na lista o objeto que contem as informacoes de uma determinada linha do ResultSet.
             
         }
         
@@ -262,7 +336,7 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         List<Receita> lista = null;
         
-        PreparedStatement ps = this.con.prepareStatement("select id, orientacao "
+        PreparedStatement ps = this.con.prepareStatement("select id, orientacao, consulta_id "
                                                         + "from tb_receita order by id asc");
         
         ResultSet rs = ps.executeQuery(); // Executa a query.
@@ -271,10 +345,15 @@ public class PersistenciaJDBC implements InterfacePersistencia {
         
         while(rs.next()) {
             
-            Receita res = new Receita();
+            Receita rec = new Receita();
         
-            res.setId(rs.getInt("id"));
-            res.setOrientacao(rs.getString("orientacao"));
+            rec.setId(rs.getInt("id"));
+            
+            rec.setOrientacao(rs.getString("orientacao"));
+            
+            Consulta cons = new Consulta();
+            cons.setId(rs.getInt("consulta_id"));
+            rec.setConsulta(cons);
             
         }
         
