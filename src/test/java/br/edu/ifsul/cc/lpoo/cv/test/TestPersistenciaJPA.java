@@ -16,12 +16,12 @@ public class TestPersistenciaJPA {
         
         PersistenciaJPA persistencia = new PersistenciaJPA();
         if(persistencia.conexaoAberta()) {
-            System.out.println("Abriu a conexao com o BD via JPA.");
+            System.out.println("\nAbriu a conexão com o BD via JPA.\n");
             
             persistencia.fecharConexao();
             
         } else {
-            System.out.println("Nao abriu a conexao com o BD via JPA.");
+            System.out.println("\nNão abriu a conexão com o BD via JPA.\n");
         }       
     }
 }
