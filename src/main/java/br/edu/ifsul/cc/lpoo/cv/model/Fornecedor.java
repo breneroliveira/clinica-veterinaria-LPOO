@@ -2,6 +2,7 @@
 package br.edu.ifsul.cc.lpoo.cv.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,7 +13,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_fornecedor")
-class Fornecedor extends Pessoa {
+@DiscriminatorValue("For")
+public class Fornecedor extends Pessoa {
     
     @Column(nullable = false)
     private String cnpj;
