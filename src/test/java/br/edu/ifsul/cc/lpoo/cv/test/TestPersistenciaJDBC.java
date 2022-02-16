@@ -197,7 +197,7 @@ public class TestPersistenciaJDBC {
     @Test
     public void testGeracaoPessoaLogin() throws Exception {
         
-        PersistenciaJPA persistencia = new PersistenciaJPA();
+        PersistenciaJDBC persistencia = new PersistenciaJDBC();
         if(persistencia.conexaoAberta()) {
             System.out.println("\nAbriu a conexão com o BD via JDBC.\n");
             
