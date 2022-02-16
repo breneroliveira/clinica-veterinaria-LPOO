@@ -2,6 +2,7 @@
 package br.edu.ifsul.cc.lpoo.cv.model.dao;
 
 import br.edu.ifsul.cc.lpoo.cv.model.Consulta;
+import br.edu.ifsul.cc.lpoo.cv.model.Pessoa;
 import br.edu.ifsul.cc.lpoo.cv.model.Receita;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -45,6 +46,9 @@ public class PersistenciaJPA implements InterfacePersistencia {
     @Override
     public void persist(Object o) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*entity.getTransaction().begin(); // Abrir a transação.
+        entity.persist(o); // Realiza o INSERT ou UPDATE.
+        entity.getTransaction().commit(); // Comita a transação (comando sql).*/
     }
 
     @Override
@@ -61,4 +65,22 @@ public class PersistenciaJPA implements InterfacePersistencia {
     public List<Receita> listReceitas() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public List<Pessoa> listPessoas() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Pessoa doLogin(String cpf, String senha) throws Exception {
+        
+        List<Pessoa> list = entity.createNamedQuery("Pessoa.login").setParameter("paramN", cpf).setParameter("paramS", senha).getResultList();
+        if(list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+        
+    }
+    
 }

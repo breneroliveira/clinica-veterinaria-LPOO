@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -22,6 +25,11 @@ import javax.persistence.TemporalType;
 @Table(name = "tb_pessoa")
 @Inheritance(strategy = InheritanceType.JOINED) // Alterar a estrategia.
 @DiscriminatorColumn(name = "tipo")
+
+@NamedQueries({      
+    @NamedQuery(name = "Pessoa.login",
+               query = "SELECT p From Pessoa p where p.cpf = :paramN and p.senha = :paramS")
+})
 public class Pessoa implements Serializable {
     
     @Id
@@ -58,6 +66,9 @@ public class Pessoa implements Serializable {
     
     @Column(nullable = false)
     private String complemento;
+    
+    @Transient
+    private String tipo;
     
     public Pessoa() {
         
@@ -215,5 +226,19 @@ public class Pessoa implements Serializable {
      */
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

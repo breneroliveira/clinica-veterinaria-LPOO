@@ -28,7 +28,7 @@ public class CVMain {
                 controle.initComponents();
 
             } else {
-                JOptionPane.showMessageDialog(null, "Não conectou no Banco de Dados!", 
+                JOptionPane.showMessageDialog(null, "Não conectou no Banco de Dados.", 
                                              "Banco de Dados", JOptionPane.ERROR_MESSAGE);
             }
 
