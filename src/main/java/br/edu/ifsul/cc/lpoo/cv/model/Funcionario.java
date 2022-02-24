@@ -18,10 +18,10 @@ import javax.persistence.Table;
 @DiscriminatorValue("Fun")
 public class Funcionario extends Pessoa {
     
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false, length = 11)
     private String numero_ctps;
     
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 8)
     private String numero_pis;
     
     @Column(nullable = false)
