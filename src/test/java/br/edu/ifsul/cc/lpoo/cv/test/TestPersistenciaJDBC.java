@@ -280,20 +280,20 @@ public class TestPersistenciaJDBC {
     }
     
     //@Test
-    public void testGeracaoPessoaLogin() throws Exception {
+    public void testGeracaoFuncionarioLogin() throws Exception {
         
         PersistenciaJDBC persistencia = new PersistenciaJDBC();
         if(persistencia.conexaoAberta()) {
             System.out.println("\nAbriu a conexão com o BD via JDBC.\n");
             
-            Pessoa p = persistencia.doLogin("78945612312", "4321");
+            Funcionario f = persistencia.doLogin("78945612312", "4321");
 
-            if(p == null) {
+            if(f == null) {
                 
-                System.out.println("Não há nenhuma pessoa cadastrada.\n");
+                System.out.println("Não há nenhum funcionário cadastrado.\n");
                 
             } else {
-                System.out.println("Encontrou uma pessoa cadastrada.\n");
+                System.out.println("Encontrou uma funcionário cadastrado.\n");
             }
             
             persistencia.fecharConexao();
