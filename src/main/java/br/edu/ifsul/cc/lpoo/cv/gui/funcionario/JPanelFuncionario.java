@@ -1,5 +1,5 @@
 
-package br.edu.ifsul.cc.lpoo.cv.gui.pessoa;
+package br.edu.ifsul.cc.lpoo.cv.gui.funcionario;
 
 import br.edu.ifsul.cc.lpoo.cv.Controle;
 import java.awt.CardLayout;
@@ -10,13 +10,13 @@ import javax.swing.JPanel;
  * @author brener
  */
 
-public class JPanelPessoa extends JPanel {
+public class JPanelFuncionario extends JPanel {
     
     private CardLayout cardLayout;
     private Controle controle;
     
     
-    public JPanelPessoa(Controle controle){
+    public JPanelFuncionario(Controle controle){
         
         this.controle = controle;
         initComponents();

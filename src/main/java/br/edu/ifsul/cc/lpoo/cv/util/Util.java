@@ -13,8 +13,9 @@ import javax.swing.KeyStroke;
 
 /**
  *
- * @author telmo
+ * @author brener
  */
+
 public class Util {
     
     public static void considerarEnterComoTab (Component comp) {  
