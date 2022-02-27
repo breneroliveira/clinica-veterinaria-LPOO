@@ -49,7 +49,7 @@ public class JPanelAutenticacao extends JPanel implements ActionListener {
         this.setLayout(gridLayout); // Definie o gerenciador para este painel.
         
         lblCpf = new JLabel("CPF: ");
-        lblCpf.setFocusable(true); // Acessibilidade. 
+        //lblCpf.setFocusable(true); // Acessibilidade. 
         lblCpf.setToolTipText("lblCpf"); // Acessibilidade.
         posicionador = new GridBagConstraints();
         posicionador.gridy = 0; // Posição da linha (vertical).
@@ -128,7 +128,7 @@ public class JPanelAutenticacao extends JPanel implements ActionListener {
             // ** IMLEMENTAR PRA MOSTRAR MENSAGENS DE ERRO ESPECIFICAS (VALIDAÇÃO DE FORMULÁRIO). FAZER ELSE/IF.
         }*/
         
-        if(e.getActionCommand().equals(btnLogar.getActionCommand())){
+        if(e.getActionCommand().equals(btnLogar.getActionCommand())) {
             
             // Validação do formulário.
             if(txfCpf.getText().trim().length() > 4) {
@@ -143,7 +143,7 @@ public class JPanelAutenticacao extends JPanel implements ActionListener {
 
                 } else {
 
-                    JOptionPane.showMessageDialog(this, "Informe Senha com 4 ou mais dígitos.", "Autenticação", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Informe a senha com 4 ou mais dígitos.", "Autenticação", JOptionPane.ERROR_MESSAGE);
                     psfSenha.setBorder(new LineBorder(Color.red, 1));
                     psfSenha.requestFocus();                        
 
