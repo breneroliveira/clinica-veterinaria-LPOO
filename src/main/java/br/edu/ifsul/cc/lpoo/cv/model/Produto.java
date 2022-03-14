@@ -37,6 +37,10 @@ public class Produto implements Serializable {
     @Column(precision = 2, nullable = false)
     private Float quantidade;
     
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoProduto tipo_produto;
+    
     @ManyToOne
     @JoinColumn(name = "fornecedor_cpf", nullable = false)
     private Fornecedor fornecedor;
@@ -131,5 +135,10 @@ public class Produto implements Serializable {
      */
     public void setTipoProduto(TipoProduto tipoProduto) {
         this.tipoProduto = tipoProduto;
+    }
+    
+    @Override
+    public String toString(){      
+        return id.toString();
     }
 }

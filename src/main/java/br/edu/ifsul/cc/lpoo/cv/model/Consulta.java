@@ -180,4 +180,9 @@ public class Consulta implements Serializable {
         
         this.receitas.add(receita);
     }
+    
+    @Override
+    public String toString(){      
+        return id.toString();
+    }
 }

@@ -1,9 +1,12 @@
 
 package br.edu.ifsul.cc.lpoo.cv.model.dao;
 
+import br.edu.ifsul.cc.lpoo.cv.model.Cliente;
 import br.edu.ifsul.cc.lpoo.cv.model.Consulta;
 import br.edu.ifsul.cc.lpoo.cv.model.Funcionario;
+import br.edu.ifsul.cc.lpoo.cv.model.Medico;
 import br.edu.ifsul.cc.lpoo.cv.model.Pessoa;
+import br.edu.ifsul.cc.lpoo.cv.model.Pet;
 import br.edu.ifsul.cc.lpoo.cv.model.Receita;
 import java.util.List;
 
@@ -31,6 +34,12 @@ public interface InterfacePersistencia {
     public List<Pessoa> listPessoas() throws Exception;
     
     public List<Funcionario> listFuncionarios() throws Exception;
+    
+    public List<Medico> listMedicos() throws Exception;
+    
+    public List<Cliente> listClientes() throws Exception;
+    
+    public List<Pet> listPets() throws Exception;
     
     public Funcionario doLogin(String cpf, String senha) throws Exception;
     

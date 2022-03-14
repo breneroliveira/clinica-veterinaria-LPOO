@@ -19,40 +19,40 @@ import javax.swing.SwingConstants;
 
 public class JPanelHome extends JPanel  {
     
-        private JLabel lblMensagem;        
-        private JLabel lblImagem;
-        private JLabel lblData;
-        private BorderLayout layoutGeo;
+    private JLabel lblMensagem;        
+    private JLabel lblImagem;
+    private JLabel lblData;
+    private BorderLayout layoutGeo;
 
-        private Controle controle;
-        
-        public JPanelHome(Controle controle) {
+    private Controle controle;
 
-            this.controle = controle;
-            initComponents();
-            
-        }
-        
-        private void initComponents() {
+    public JPanelHome(Controle controle) {
 
-            layoutGeo = new BorderLayout();
-            this.setLayout(layoutGeo); // Seta o gerenciador de layout para este painel.
+        this.controle = controle;
+        initComponents();
 
-            lblMensagem = new JLabel("Bem-vindo ao sistema.");
-            lblMensagem.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(lblMensagem, BorderLayout.NORTH);
+    }
 
-            lblImagem = new JLabel(new ImageIcon(JPanelHome.class.getResource("/images/logo_ifsul_color.png")));
-            this.add(lblImagem, BorderLayout.CENTER); // Adiciona a imagem na parte central deste painel.
+    private void initComponents() {
 
-            Calendar c = Calendar.getInstance(); // Recupera a data atual do computador.
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");       
+        layoutGeo = new BorderLayout();
+        this.setLayout(layoutGeo); // Seta o gerenciador de layout para este painel.
 
-            lblData = new JLabel(df.format(c.getTime()));
-            lblData.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-            lblData.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(lblData, BorderLayout.SOUTH); // Adiciona o rotulo para a data na parte inferior deste painel.       
-            
-        }
+        lblMensagem = new JLabel("Bem-vindo ao sistema.");
+        lblMensagem.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(lblMensagem, BorderLayout.NORTH);
+
+        lblImagem = new JLabel(new ImageIcon(JPanelHome.class.getResource("/images/logo_ifsul_color.png")));
+        this.add(lblImagem, BorderLayout.CENTER); // Adiciona a imagem na parte central deste painel.
+
+        Calendar c = Calendar.getInstance(); // Recupera a data atual do computador.
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");       
+
+        lblData = new JLabel(df.format(c.getTime()));
+        lblData.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        lblData.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(lblData, BorderLayout.SOUTH); // Adiciona o rotulo para a data na parte inferior deste painel.       
+
+    }
         
 }

@@ -86,7 +86,7 @@ public class JPanelAutenticacao extends JPanel implements ActionListener {
         btnLogar = new JButton("Autenticar");
         btnLogar.setFocusable(true); // Acessibilidade.
         btnLogar.setToolTipText("btnLogar"); // Acessibilidade.
-        Util.considerarEnterComoTab(psfSenha);
+        Util.registraEnterNoBotao(btnLogar);
         posicionador = new GridBagConstraints();
         posicionador.gridy = 2; // Posição da linha (vertical).
         posicionador.gridx = 1; // Posição da coluna (horizontal).
@@ -131,7 +131,7 @@ public class JPanelAutenticacao extends JPanel implements ActionListener {
         if(e.getActionCommand().equals(btnLogar.getActionCommand())) {
             
             // Validação do formulário.
-            if(txfCpf.getText().trim().length() > 4) {
+            if(txfCpf.getText().trim().length() == 11) {
 
                 txfCpf.setBorder(new LineBorder(Color.green,1));
 

@@ -27,16 +27,19 @@ public class Util {
     
     public static void registraEnterNoBotao(JButton b) {  
         b.registerKeyboardAction(  
-                b.getActionForKeyStroke(  
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),  
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),  
-                JComponent.WHEN_FOCUSED);  
+            b.getActionForKeyStroke(  
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)
+            ),  
+            KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),  
+            JComponent.WHEN_FOCUSED
+        );  
           
         b.registerKeyboardAction(  
-                b.getActionForKeyStroke(  
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),  
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),  
-                JComponent.WHEN_FOCUSED);  
-    } 
-    
+            b.getActionForKeyStroke(  
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)
+            ),  
+            KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),  
+            JComponent.WHEN_FOCUSED
+        );  
+    }
 }

@@ -21,7 +21,6 @@ public class JFramePrincipal extends JFrame implements WindowListener {
     
     public JPanel painel; // Painel.
     
-    
     public JFramePrincipal() {
         
         initComponents();        
@@ -50,14 +49,12 @@ public class JFramePrincipal extends JFrame implements WindowListener {
                 
     }
     
-    public void addTela(JPanel p, String nome) {   
-        
-            painel.add(p, nome); // Adiciona uma "carta no baralho".
+    public void addTela(JPanel p, String nome) {
+        painel.add(p, nome); // Adiciona uma "carta no baralho".
     }
 
     public void showTela(String nome) {
-        
-            cardLayout.show(painel, nome); // Localiza a "carta no baralho" e mostra.
+        cardLayout.show(painel, nome); // Localiza a "carta no baralho" e mostra.
     }
 
     @Override

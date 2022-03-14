@@ -1,8 +1,8 @@
 
-package br.edu.ifsul.cc.lpoo.cv.gui.funcionario.acessibilidade;
+package br.edu.ifsul.cc.lpoo.cv.gui.consulta.acessibilidade;
 
 import br.edu.ifsul.cc.lpoo.cv.Controle;
-import br.edu.ifsul.cc.lpoo.cv.model.Funcionario;
+import br.edu.ifsul.cc.lpoo.cv.model.Consulta;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -25,9 +25,9 @@ import javax.swing.table.DefaultTableModel;
  * @author brener
  */
 
-public class JPanelAFuncionarioListagem extends JPanel implements ActionListener {
+public class JPanelAConsultaListagem extends JPanel implements ActionListener {
     
-    private JPanelAFuncionario pnlAFuncionario;
+    private JPanelAConsulta pnlAConsulta;
     private Controle controle;
     
     private BorderLayout borderLayout;
@@ -48,9 +48,9 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
     
     private SimpleDateFormat format;
     
-    public JPanelAFuncionarioListagem(JPanelAFuncionario pnlAFuncionario, Controle controle) {
+    public JPanelAConsultaListagem(JPanelAConsulta pnlAConsulta, Controle controle) {
         
-        this.pnlAFuncionario = pnlAFuncionario;
+        this.pnlAConsulta = pnlAConsulta;
         this.controle = controle;
         
         initComponents();
@@ -64,16 +64,16 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
 
         try {
 
-            List<Funcionario> listFuncionarios = controle.getConexaoJDBC().listFuncionarios();
-            for(Funcionario j : listFuncionarios){
+            List<Consulta> listConsultas = controle.getConexaoJDBC().listConsultas();
+            for(Consulta c : listConsultas) {
                                 
-                model.addRow(new Object[]{j, format.format(j.getData_cadastro().getTime()), j.getCep()});
+                model.addRow(new Object[]{c, format.format(c.getData().getTime()), c.getValor()});
             }
 
         } catch (Exception ex) {
 
-            JOptionPane.showMessageDialog(this, "Erro ao listar funcionários: " + ex.getLocalizedMessage(), "Funcionários", 
-                                         JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao listar consultas: " + ex.getLocalizedMessage(), 
+                                         "Consultas", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }        
         
@@ -87,7 +87,7 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
         pnlNorte = new JPanel();
         pnlNorte.setLayout(new FlowLayout());
         
-        lblFiltro = new JLabel("Filtrar por CPF:");
+        lblFiltro = new JLabel("Filtrar por ID:");
         pnlNorte.add(lblFiltro);
         
         txfFiltro = new JTextField(20);
@@ -110,8 +110,9 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
         
         modeloTabela = new DefaultTableModel(
             new String [] {
-                "CPF", "Data cadastro", "CEP"
+                "ID", "Data da consulta", "Valor (R$)"
             }, 0
+             
         ){
             @Override
             public boolean isCellEditable(final int row, final int column) {
@@ -142,7 +143,6 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
         btnAlterar.addActionListener(this);
         btnAlterar.setFocusable(true); // Acessibilidade.
         btnAlterar.setToolTipText("btnAlterar"); // Acessibilidade.
-        btnAlterar.setMnemonic(KeyEvent.VK_E);
         btnAlterar.setActionCommand("botao_alterar");
         
         pnlSul.add(btnAlterar);
@@ -150,8 +150,8 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
         btnRemover = new JButton("Remover");
         btnRemover.addActionListener(this);
         btnRemover.setFocusable(true); // Acessibilidade.
-        btnRemover.setToolTipText("btnRemvoer"); // Acessibilidade.
-        btnRemover.setMnemonic(KeyEvent.VK_R);
+        btnRemover.setToolTipText("btnRemover"); // Acessibilidade.
+        btnRemover.setMnemonic(KeyEvent.VK_X);
         btnRemover.setActionCommand("botao_remover");
         
         pnlSul.add(btnRemover); // Adiciona o botão na fila organizada pelo flowlayout.
@@ -167,50 +167,52 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
     
         if(arg0.getActionCommand().equals(btnNovo.getActionCommand())) {
             
-            pnlAFuncionario.showTela("tela_funcionario_formulario");
+            pnlAConsulta.showTela("tela_consulta_formulario");
             
-            pnlAFuncionario.getFormulario().setFuncionarioFormulario(null); // Limpando o formulário.
+            pnlAConsulta.getFormulario().setConsultaFormulario(null); // Limpando o formulário.
+            
             
         } else if(arg0.getActionCommand().equals(btnAlterar.getActionCommand())) {
             
             int indice = tblListagem.getSelectedRow(); // Recupera a linha selecionada.
             if(indice > -1) {
 
-                DefaultTableModel model = (DefaultTableModel) tblListagem.getModel(); // Recuperação do modelo da table.
+                DefaultTableModel model =  (DefaultTableModel) tblListagem.getModel(); // Recuperação do modelo da table.
 
                 Vector linha = (Vector) model.getDataVector().get(indice); // Recupera o vetor de dados da linha selecionada.
 
-                Funcionario f = (Funcionario) linha.get(0); // model.addRow(new Object[]{u, u.getNome(), ...
+                Consulta c = (Consulta) linha.get(0); // model.addRow(new Object[]{u, u.getNome(), ...
 
-                pnlAFuncionario.showTela("tela_funcionario_formulario");
-                pnlAFuncionario.getFormulario().setFuncionarioFormulario(f); 
+                pnlAConsulta.showTela("tela_consulta_formulario");
+                pnlAConsulta.getFormulario().setConsultaFormulario(c); 
             
             } else {
                   JOptionPane.showMessageDialog(this, "Selecione uma linha para editar.", "Edição", 
-                                               JOptionPane.INFORMATION_MESSAGE);
+                  JOptionPane.INFORMATION_MESSAGE);
             }
                 
         } else if(arg0.getActionCommand().equals(btnRemover.getActionCommand())) {           
             
             int indice = tblListagem.getSelectedRow(); // Recupera a linha selecionada.
-            
-            if(indice > -1) {
+            if(indice > -1){
 
                 DefaultTableModel model =  (DefaultTableModel) tblListagem.getModel(); // Recuperação do modelo da table.
 
                 Vector linha = (Vector) model.getDataVector().get(indice); // Recupera o vetor de dados da linha selecionada.
 
-                Funcionario f = (Funcionario) linha.get(0); // model.addRow(new Object[]{u, u.getNome(), ...
+                Consulta c = (Consulta) linha.get(0); // model.addRow(new Object[]{u, u.getNome(), ...
+                
+                /*pnlAConsulta.showTela("tela_consulta_formulario");
+                pnlAConsulta.getFormulario().setConsultaFormulario(c);*/
 
                 try {
-                    pnlAFuncionario.getControle().getConexaoJDBC().remover(f);
-                    JOptionPane.showMessageDialog(this, "Funcionário removido.", "Funcionário", 
-                                                  JOptionPane.INFORMATION_MESSAGE);
+                    pnlAConsulta.getControle().getConexaoJDBC().remover(c);
+                    JOptionPane.showMessageDialog(this, "Consulta removida.", "Consulta", JOptionPane.INFORMATION_MESSAGE);
                     populaTable(); // Refresh na tabela.
 
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao remover funcionário: " + 
-                                                  ex.getLocalizedMessage(), "Funcionários", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Erro ao remover consulta: " + ex.getLocalizedMessage(), 
+                                                 "Consultas", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }                        
 

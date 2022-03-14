@@ -22,7 +22,9 @@ public class JMenuBarHome extends JMenuBar implements ActionListener {
     private JMenuItem menuItemSair;
 
     private JMenu menuCadastro;
-    private JMenuItem menuItemFuncionario;    
+    private JMenuItem menuItemFuncionario;
+    private JMenuItem menuItemConsulta; //DESCOMENTAR
+    private JMenuItem menuItemReceita;
 
     private Controle controle;
     
@@ -66,8 +68,24 @@ public class JMenuBarHome extends JMenuBar implements ActionListener {
         menuItemFuncionario.setFocusable(true); // Acessibilidade.
 
         menuItemFuncionario.addActionListener(this);
-        menuItemFuncionario.setActionCommand("menu_Funcionario");
-        menuCadastro.add(menuItemFuncionario);   
+        menuItemFuncionario.setActionCommand("menu_funcionario");
+        menuCadastro.add(menuItemFuncionario);
+        
+        menuItemConsulta = new JMenuItem("Consulta"); //DESCOMENTAR TUDO
+        menuItemConsulta.setToolTipText("Consulta"); // Acessibilidade.
+        menuItemConsulta.setFocusable(true); // Acessibilidade.
+
+        menuItemConsulta.addActionListener(this);
+        menuItemConsulta.setActionCommand("menu_consulta");
+        menuCadastro.add(menuItemConsulta);
+        
+        menuItemReceita = new JMenuItem("Receita"); //DESCOMENTAR TUDO
+        menuItemReceita.setToolTipText("Receita"); // Acessibilidade.
+        menuItemReceita.setFocusable(true); // Acessibilidade.
+
+        menuItemReceita.addActionListener(this);
+        menuItemReceita.setActionCommand("menu_receita");
+        menuCadastro.add(menuItemReceita);
 
         this.add(menuArquivo);
         this.add(menuCadastro);
@@ -91,6 +109,16 @@ public class JMenuBarHome extends JMenuBar implements ActionListener {
             
             // Se o usuario clicou no menuitem Usuario.
             controle.showTela("tela_funcionario");
+            
+        } else if(e.getActionCommand().equals(menuItemConsulta.getActionCommand())) { //DESCOMENTAR TUDO
+            
+            // Se o usuario clicou no menuitem Usuario.
+            controle.showTela("tela_consulta");
+            
+        } else if(e.getActionCommand().equals(menuItemReceita.getActionCommand())) { //DESCOMENTAR TUDO
+            
+            // Se o usuario clicou no menuitem Usuario.
+            controle.showTela("tela_receita");
             
         } else if(e.getActionCommand().equals(menuItemLogout.getActionCommand())) {
             controle.showTela("tela_autenticacao");    

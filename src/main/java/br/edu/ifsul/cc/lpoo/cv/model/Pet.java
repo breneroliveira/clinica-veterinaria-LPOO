@@ -134,4 +134,28 @@ public class Pet implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+    
+    @Override
+    public String toString(){
+        return id.toString();
+    }
+    
+    @Override
+    public boolean equals(Object o){
+
+        if(o == null){
+            return false;
+
+        }else if(!(o instanceof Pet)){
+            return false;
+
+        }else{
+            Pet p = (Pet) o;
+            if (p.getId().intValue() == this.getId().intValue()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 }

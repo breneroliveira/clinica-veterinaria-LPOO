@@ -1,5 +1,5 @@
 
-package br.edu.ifsul.cc.lpoo.cv.gui.funcionario.acessibilidade;
+package br.edu.ifsul.cc.lpoo.cv.gui.receita.acessibilidade;
 
 import br.edu.ifsul.cc.lpoo.cv.Controle;
 import java.awt.CardLayout;
@@ -10,15 +10,15 @@ import javax.swing.JPanel;
  * @author brener
  */
 
-public class JPanelAFuncionario extends JPanel {
+public class JPanelAReceita extends JPanel {
     
     private CardLayout cardLayout;
     private Controle controle;
     
-    private JPanelAFuncionarioFormulario formulario;
-    private JPanelAFuncionarioListagem listagem;
+    private JPanelAReceitaFormulario formulario;
+    private JPanelAReceitaListagem listagem;
     
-    public JPanelAFuncionario(Controle controle) {
+    public JPanelAReceita(Controle controle) {
         
         this.controle = controle;
         initComponents();
@@ -29,29 +29,29 @@ public class JPanelAFuncionario extends JPanel {
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);
         
-        formulario = new JPanelAFuncionarioFormulario(this, controle);
-        listagem = new JPanelAFuncionarioListagem(this, controle);
+        formulario = new JPanelAReceitaFormulario(this, controle);
+        listagem = new JPanelAReceitaListagem(this, controle);
         
-        this.add(formulario, "tela_funcionario_formulario");
-        this.add(listagem, "tela_funcionario_listagem");
+        this.add(formulario, "tela_receita_formulario");
+        this.add(listagem, "tela_receita_listagem");
         
-        cardLayout.show(this, "tela_funcionario_listagem");
+        cardLayout.show(this, "tela_receita_listagem");
     }
     
     public void showTela(String nomeTela) {
         
-        if(nomeTela.equals("tela_funcionario_listagem")) {
+        if(nomeTela.equals("tela_receita_listagem")) {
             
             listagem.populaTable();
             
-        } else if(nomeTela.equals("tela_funcionario_formulario")) {
+        } else if(nomeTela.equals("tela_receita_formulario")) {
             
-            getFormulario().populaComboCargo();
+            //getFormulario().populaComboMedico(); // DÚVIDA: SANADA
         }
         
         cardLayout.show(this, nomeTela);
     }
-
+    
     /**
      * @return the controle
      */
@@ -63,8 +63,7 @@ public class JPanelAFuncionario extends JPanel {
     /**
      * @return the formulario
      */
-    public JPanelAFuncionarioFormulario getFormulario() {
+    public JPanelAReceitaFormulario getFormulario() {
         return formulario;
     }
-    
 }

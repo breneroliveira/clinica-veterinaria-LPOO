@@ -44,7 +44,7 @@ public class Receita implements Serializable {
     public Receita() {
         
     }
-
+    
     /**
      * @return the id
      */
@@ -99,5 +99,10 @@ public class Receita implements Serializable {
      */
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+    
+    @Override
+    public String toString(){      
+        return id.toString();
     }
 }
