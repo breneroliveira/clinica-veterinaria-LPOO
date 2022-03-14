@@ -202,8 +202,8 @@ public class JPanelAReceitaListagem extends JPanel implements ActionListener {
 
                 Receita r = (Receita) linha.get(0); // model.addRow(new Object[]{u, u.getNome(), ...
                 
-                /*pnlAConsulta.showTela("tela_consulta_formulario");
-                pnlAConsulta.getFormulario().setConsultaFormulario(c);*/
+                pnlAReceita.showTela("tela_receita_formulario");
+                pnlAReceita.getFormulario().setReceitaFormulario(r);
 
                 try {
                     pnlAReceita.getControle().getConexaoJDBC().remover(r);

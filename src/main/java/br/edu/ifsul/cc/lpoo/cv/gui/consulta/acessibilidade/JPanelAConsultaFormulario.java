@@ -3,10 +3,8 @@ package br.edu.ifsul.cc.lpoo.cv.gui.consulta.acessibilidade;
 
 import br.edu.ifsul.cc.lpoo.cv.Controle;
 import br.edu.ifsul.cc.lpoo.cv.model.Consulta;
-import br.edu.ifsul.cc.lpoo.cv.model.Fornecedor;
 import br.edu.ifsul.cc.lpoo.cv.model.Medico;
 import br.edu.ifsul.cc.lpoo.cv.model.Pet;
-import br.edu.ifsul.cc.lpoo.cv.model.TipoProduto;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -245,20 +243,6 @@ public class JPanelAConsultaFormulario extends JPanel implements ActionListener 
         posicionador.anchor = java.awt.GridBagConstraints.LINE_START; // Ancoragem a esquerda.
         pnlDadosCadastrais.add(txfId, posicionador); // O add adiciona o rótulo no painel.
         
-        /*lblData = new JLabel("Data da consulta: ");
-        posicionador = new GridBagConstraints();
-        posicionador.gridy = 1; // Posição da linha (vertical).
-        posicionador.gridx = 0; // Posição da coluna (horizontal).
-        posicionador.anchor = java.awt.GridBagConstraints.LINE_END; // Ancoragem a direita.
-        pnlDadosCadastrais.add(lblData, posicionador); // O add adiciona o rótulo no painel.
-        
-        txfData = new JTextField(20);
-        posicionador = new GridBagConstraints();
-        posicionador.gridy = 1; // Polição da linha (vertical).
-        posicionador.gridx = 1; // Posição da coluna (horizontal).
-        posicionador.anchor = java.awt.GridBagConstraints.LINE_START; // Ancoragem a esquerda.
-        pnlDadosCadastrais.add(txfData, posicionador); // O add adiciona o rótulo no painel.*/
-        
         lblData = new JLabel("Data da consulta: ");
         posicionador = new GridBagConstraints();
         posicionador.gridy = 1; // Posição da linha (vertical).
@@ -290,20 +274,6 @@ public class JPanelAConsultaFormulario extends JPanel implements ActionListener 
         posicionador.gridx = 1; // Posição da coluna (horizontal).
         posicionador.anchor = java.awt.GridBagConstraints.LINE_START; // Ancoragem a esquerda.
         pnlDadosCadastrais.add(txfObservacao, posicionador); // O add adiciona o rótulo no painel.
-        
-        /*lblData_retorno = new JLabel("Data de retorno: ");
-        posicionador = new GridBagConstraints();
-        posicionador.gridy = 3; // Posição da linha (vertical).
-        posicionador.gridx = 0; // Posição da coluna (horizontal).
-        posicionador.anchor = java.awt.GridBagConstraints.LINE_END; // Ancoragem a direita.
-        pnlDadosCadastrais.add(lblData_retorno, posicionador); // O add adiciona o rótulo no painel.
-        
-        txfData_retorno = new JTextField(20);
-        posicionador = new GridBagConstraints();
-        posicionador.gridy = 3; // Polição da linha (vertical).
-        posicionador.gridx = 1; // Posição da coluna (horizontal).
-        posicionador.anchor = java.awt.GridBagConstraints.LINE_START; // Ancoragem a esquerda.
-        pnlDadosCadastrais.add(txfData_retorno, posicionador); // O add adiciona o rótulo no painel.*/
         
         lblData_retorno = new JLabel("Data de retorno: ");
         posicionador = new GridBagConstraints();
@@ -366,12 +336,6 @@ public class JPanelAConsultaFormulario extends JPanel implements ActionListener 
         pnlDadosCadastrais.add(cbxPet, posicionador); // O add adiciona o rotulo no painel.
         
         tbpAbas.addTab("Dados cadastrais", pnlDadosCadastrais);
-        
-        /*pnlDadosVendas = new JPanel();
-        tbpAbas.addTab("Vendas", pnlDadosVendas);
-        
-        pnlDadosProdutos = new JPanel();
-        tbpAbas.addTab("Produtos", pnlDadosProdutos);*/
         
         pnlSul = new JPanel();
         pnlSul.setLayout(new FlowLayout());

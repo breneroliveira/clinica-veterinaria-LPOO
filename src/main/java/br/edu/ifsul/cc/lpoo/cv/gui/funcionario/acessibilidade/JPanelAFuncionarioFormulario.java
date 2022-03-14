@@ -95,13 +95,6 @@ public class JPanelAFuncionarioFormulario extends JPanel implements ActionListen
     private JButton btnGravar;
     private JButton btnCancelar;
     
-    //private JPanel pnlDadosCompras;
-    //private JPanel pnlDadosArtefatos;
-    //private JPanel pnlDadosPatentes;
-    
-    //private JPanel pnlDadosConsultas;
-    //private JPanel pnlDadosReceitas;
-    
     public JPanelAFuncionarioFormulario(JPanelAFuncionario pnlAFuncionario, Controle controle) {
         
         this.pnlAFuncionario = pnlAFuncionario;

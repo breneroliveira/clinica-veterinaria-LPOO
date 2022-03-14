@@ -94,9 +94,9 @@ public class JPanelAReceitaFormulario extends JPanel implements ActionListener {
 
             Receita r = new Receita();
             
-            String strId = txfId.getText();
+            /*String strId = txfId.getText();
             Integer id_convert = Integer.parseInt(strId);
-            r.setId(id_convert);
+            r.setId(id_convert);*/
             
             r.setOrientacao(txfOrientacao.getText().trim());
             
@@ -234,10 +234,10 @@ public class JPanelAReceitaFormulario extends JPanel implements ActionListener {
                 try {
                     
                     pnlAReceita.getControle().getConexaoJDBC().persist(r);
-                    
+
                     JOptionPane.showMessageDialog(this, "Consulta armazenada.", "Salvar", 
                                                  JOptionPane.INFORMATION_MESSAGE);
-            
+
                     pnlAReceita.showTela("tela_receita_listagem");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Erro ao salvar receita: " + ex.getMessage(), 

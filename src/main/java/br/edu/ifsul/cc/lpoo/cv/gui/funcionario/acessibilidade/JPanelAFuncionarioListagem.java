@@ -65,9 +65,9 @@ public class JPanelAFuncionarioListagem extends JPanel implements ActionListener
         try {
 
             List<Funcionario> listFuncionarios = controle.getConexaoJDBC().listFuncionarios();
-            for(Funcionario j : listFuncionarios){
+            for(Funcionario f : listFuncionarios){
                                 
-                model.addRow(new Object[]{j, format.format(j.getData_cadastro().getTime()), j.getCep()});
+                model.addRow(new Object[]{f, format.format(f.getData_cadastro().getTime()), f.getCep()});
             }
 
         } catch (Exception ex) {

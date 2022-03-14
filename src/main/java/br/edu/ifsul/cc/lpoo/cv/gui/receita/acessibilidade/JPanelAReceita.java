@@ -46,7 +46,7 @@ public class JPanelAReceita extends JPanel {
             
         } else if(nomeTela.equals("tela_receita_formulario")) {
             
-            //getFormulario().populaComboMedico(); // DÚVIDA: SANADA
+            getFormulario().populaComboConsulta(); // DÚVIDA: SANADA
         }
         
         cardLayout.show(this, nomeTela);
